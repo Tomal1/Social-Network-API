@@ -1,7 +1,7 @@
 const express = require("express");
 const db = require('./config/connection');
 
-
+const { userThought } = require("./models");
 
 const app = express()
 

@@ -16,9 +16,9 @@ app.get("/", (req, res) => {
   });
 });
 
-app.delete("/:id", (req, res) => {
+app.delete("/:_id", (req, res) => {
   // Using model in route to find all documents that are instances of that model
-  userThought.findOneAndDelete({ id: req.params.id }, (err, result) => {
+  userThought.findOneAndDelete({ _id: req.params._id}, (err, result) => {
     if (result) {
       res.status(200).json(result);
       console.log(`Deleted: ${result}`);

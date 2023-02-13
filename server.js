@@ -1,11 +1,16 @@
 const express = require("express");
-const db = require('./config/connection');
-
+const db = require("./config/connection");
 const { userThought } = require("./models");
-
 const app = express()
-
 const PORT = 3001;
+
+
+
+
+
+
+
+
 
 db.once('open', () => {
     app.listen(PORT, () => {

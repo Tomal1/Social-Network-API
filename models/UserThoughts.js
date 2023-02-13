@@ -20,6 +20,11 @@ const userThoughtSchema = new mongoose.Schema({
       user: "ninjaMan123",
       thoughts: "I need to practice my ninja technique"
     },
+    {
+      user: "superMan321",
+      thoughts: "I dont like green"
+    },
+    
     (err) =>
     //if error, send error message else print the following in terminal
     err ? handleError(err) : console.log('Created new document')

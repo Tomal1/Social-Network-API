@@ -1,7 +1,7 @@
 // Require schema and model from mongoose
 const mongoose = require('mongoose');
 
-
+const { Reaction } = require("./Reaction");
 
 const ThoughtSchema = new mongoose.Schema({
     thoughtText: {type: String, required: true, minlength: 1, maxlength: 280 },
@@ -9,8 +9,8 @@ const ThoughtSchema = new mongoose.Schema({
     username: {type: String, required: true},
     reactions:[
       {
-        type: Reactions,
-        ref:"hhjk",
+        type: Reaction,
+        ref:"Reactions",
       },
      ],
   });

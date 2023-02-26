@@ -1,6 +1,8 @@
 // Require schema and model from mongoose
 const mongoose = require('mongoose');
 
+const { Thoughts } = require("../models")
+
   /// this is the real one
   const UserSchema = new mongoose.Schema({
     username: { type: String, Unique: true, required: true, trim:true },
@@ -8,15 +10,15 @@ const mongoose = require('mongoose');
     
     thoughts:[
     {
-      type: thoughts,
-      ref:"hhjk",
+      type: Thoughts,
+      ref:"thoughts",
 
     },
     ],
     friends:[
     {
       type: User,
-      ref:"hhjk",
+      ref:"User",
     },
    ],
   },

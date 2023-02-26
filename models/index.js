@@ -1,5 +1,3 @@
-const userThought = require("./UserThoughts");
-///////
 const User = require("./User");
 const Thoughts = require("./Thoughts");
 const ReactionSchema = require("./Reaction");

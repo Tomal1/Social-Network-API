@@ -36,6 +36,11 @@ const { Thoughts, User } = require("../models")
     id: false,
   });
 
+
+  UserSchema.virtual("friendCount").get(function () {
+    return this.friends.length
+});
+
 //this is the model
   const User = mongoose.model("User", UserSchema);
 

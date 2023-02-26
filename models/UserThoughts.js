@@ -1,7 +1,7 @@
 // Require schema and model from mongoose
 const mongoose = require('mongoose');
 
-// this is the schema (another name for model) for book collection, it defines column of the collection
+// this is the schema (blueprint), it defines column of the document
 const userThoughtSchema = new mongoose.Schema({
     // column 1 and data type (required: true -- will not all null values)
     user: { type: String, required: true },
@@ -12,7 +12,7 @@ const userThoughtSchema = new mongoose.Schema({
   });
 
   // this is a model,
-  const userThought = mongoose.model('MyBook', userThoughtSchema);
+  const userThought = mongoose.model('UserThought', userThoughtSchema);
 
   // this is an instance that will create a record/document
   userThought.create(
@@ -31,4 +31,5 @@ const userThoughtSchema = new mongoose.Schema({
 
   );
 
+/////////
   module.exports = userThought;

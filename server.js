@@ -4,7 +4,7 @@ const { userThought } = require("./models");
 const app = express()
 const PORT = 3001;
 
-// need this middlewhere else dosent render body during update
+// need this middleware else doesn't render body during update
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

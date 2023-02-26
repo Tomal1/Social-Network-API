@@ -1,6 +1,8 @@
 const express = require("express");
 const db = require("./config/connection");
-const { userThought } = require("./models");
+const { userThought, Thoughts, User, Reaction } = require("./models");
+
+
 const app = express()
 const PORT = 3001;
 
@@ -45,16 +47,20 @@ app.post("/:_id", (req, res) => {
   )
 })
 
-app.get("/", (req, res) => {
-  userThought.find({}, (err, result) => {
-    if (result) {
-      res.status(200).json(result);
-    } else {
-      console.log('Uh Oh, something went wrong');
-      res.status(500).json({ message: 'something went wrong' });
-    }
-  });
-});
+
+app.get("/Thoughts", (req, res)=>{
+  Thoughts.find({})
+  .then(data=>res.status(200).json(data))
+  .catch(err=>res.status(500).json(err))
+})
+
+
+app.get("/User", (req, res)=>{
+  User.find({})
+  .then(data=>res.status(200).json(data))
+  .catch(err=>res.status(500).json(err))
+})
+
 
 app.delete("/:_id", (req, res) => {
   userThought.findOneAndDelete({ _id: req.params._id}, (err, result) => {

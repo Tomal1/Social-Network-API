@@ -1,11 +1,13 @@
 // Require schema and model from mongoose
 const mongoose = require('mongoose');
 
+const { formatDate, formatTime } = require("../utils/dateFormat");
+
 const ReactionSchema = new mongoose.Schema({
     //how to Use Mongoose's ObjectId data type
     reactionId:{
-        type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId(),
+        type: mongoose.Schema.Types.ObjectId,
+        default: () => new mongoose.Schema.Types.ObjectId(),
     },
     
     reactionBody: { 
@@ -19,7 +21,7 @@ const ReactionSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date, 
-        default: Date.now 
+        default: Date.now,
         get: (date) => {
             return `${formatDate(date)} ${formatTime(date)}`
         }
@@ -33,7 +35,7 @@ const ReactionSchema = new mongoose.Schema({
 });
 
     // this is a model,
-    const Reaction = mongoose.model("Reaction", ReactionSchema);
+    //const Reaction = mongoose.model("Reaction", ReactionSchema);
 
 /////////
-  module.exports = Reaction;
+  module.exports = ReactionSchema;

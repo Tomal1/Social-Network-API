@@ -1,7 +1,7 @@
 // Require schema and model from mongoose
 const mongoose = require('mongoose');
-
-const { Thoughts, User } = require("../models")
+const { model } = require("mongoose")
+//const { Thoughts, User } = require("../models")
 
   /// this is the real one
   const UserSchema = new mongoose.Schema({
@@ -18,13 +18,14 @@ const { Thoughts, User } = require("../models")
     },
     thoughts:[
       {
-        type: Thoughts,
-        ref:"thoughts",
+        
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Thoughts",
       },
     ],
     friends:[
       {
-        type: User,
+        type: mongoose.Schema.Types.ObjectId,
         ref:"User",
       },
    ],
@@ -42,7 +43,7 @@ const { Thoughts, User } = require("../models")
 });
 
 //this is the model
-  const User = mongoose.model("User", UserSchema);
+  const User = model("User", UserSchema);
 
 
   module.exports = User;

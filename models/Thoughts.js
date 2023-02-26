@@ -1,9 +1,10 @@
 // Require schema and model from mongoose
 const mongoose = require('mongoose');
 
-const { Reaction } = require("./Reaction");
+//dont use {}
+const  ReactionSchema = require("./Reaction");
 
-const { formatDate, formatTime } = require('../utils/dateFormat');
+const { formatDate, formatTime } = require("../utils/dateFormat");
 
 const ThoughtSchema = new mongoose.Schema({
     thoughtText: {
@@ -14,13 +15,16 @@ const ThoughtSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date, 
-        default: Date.now 
+        default: Date.now,
+        get: (date) => {
+            return `${formatDate(date)} ${formatTime(date)}`;
+        },
     },
     username: {
         type: String, 
         required: true
     },
-    reactions:[Reaction],
+    reactions:[ReactionSchema],
   },
   {
     toJSON: {
@@ -34,7 +38,7 @@ const ThoughtSchema = new mongoose.Schema({
   ThoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length
 });
-
+///used to referance the table
   const Thoughts = mongoose.model("Thoughts", ThoughtSchema);
 
 

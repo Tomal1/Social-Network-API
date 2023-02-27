@@ -85,6 +85,14 @@ app.get("/Thoughts", (req, res)=>{
   .catch(err=>res.status(500).json(err))
 })
 
+app.get("/Thoughts/:_id", (req, res)=>{
+  Thoughts.findOne({
+    _id:req.params._id,
+  })
+  .then(data=>res.status(200).json(data))
+  .catch(err=>res.status(500).json(err))
+})
+
 app.post("/Thoughts", (req,res)=>{
   Thoughts.create({
     thoughtText: req.body.thoughtText,
@@ -114,14 +122,9 @@ app.delete("/Thoughts/:_id",(req,res)=>{
 //adding a friend Id to a users record
   app.post("/thoughts/:thoughtId/reactions", (req,res)=>{
   //go into user first and look for userId
-  console.log('***', req.params.thoughtId)
-  console.log(req.body)
-  const { reactionBody, username } = req.body
-  console.log(reactionBody, username)
-  const reaction = Reaction.create({reactionBody, username})
   Thoughts.findOneAndUpdate(
   {_id: req.params.thoughtId},
-  { $addToSet: { reactions: reaction } },
+  { $addToSet: { reactions: req.body } },
   {new:true})
   .then(data=>res.status(200).json(data))
   .catch(err=> {

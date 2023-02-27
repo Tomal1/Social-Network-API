@@ -79,7 +79,6 @@ app.delete("/User/:userId/friends/:friendId", (req,res)=>{
     .catch(err=>res.status(500).json(err))
 })
 
-
 ////////////////////////////////
 app.get("/Thoughts", (req, res)=>{
   Thoughts.find({})
@@ -94,6 +93,15 @@ app.post("/Thoughts", (req,res)=>{
   })
   .then(data=>res.status(200).json(data))
   .catch(err=>res.status(500).json(err))
+})
+
+app.put("/Thoughts/:_id", (req,res)=>{
+  Thoughts.findOneAndUpdate(
+    {_id: req.params._id},
+    req.body,
+    {new:true})
+    .then(data=>res.status(200).json(data))
+    .catch(err=>res.status(500).json(err))
 })
 
 app.delete("/Thoughts/:_id",(req,res)=>{

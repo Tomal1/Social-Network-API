@@ -38,7 +38,7 @@ const ThoughtSchema = new mongoose.Schema({
   ThoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length
 });
-///used to referance the table
+//used to referance the ThoughtSchema via "Thoughts" in User.js
   const Thoughts = mongoose.model("Thoughts", ThoughtSchema);
 
 

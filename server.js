@@ -2,50 +2,12 @@ const express = require("express");
 const db = require("./config/connection");
 const { Thoughts, User, Reaction } = require("./models");
 
-
 const app = express()
 const PORT = 3001;
 
 // need this middleware else doesn't render body during update
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-
-// app.post("/", (req, res) => {
-//   const newThought = new userThought(
-//     { 
-//       user: req.params.user, 
-//       thoughts: req.params.thoughts 
-//    });
-//    newThought.save();
-//   if (newThought) {
-//     res.status(200).json(newThought);
-//   } else {
-//     console.log('Uh Oh, something went wrong');
-//     res.status(500).json({ message: 'something went wrong' });
-//   }
-// });
-
-app.post("/:_id", (req, res) => {
-  console.log(req.body)
-  userThought.findOneAndUpdate(
-    //targeting the desired id
-    {_id:req.params._id},
-    //items just disappear and nothing rendering
-    //req.body targets the body inside insomnia
-    req.body,
-    //needs this to render updated record
-    {new:true},
-    (err, result) => {
-      if (result) {
-        res.status(200).json(result);
-      } else {
-        console.log('Uh Oh, something went wrong');
-        res.status(500).json({ message: 'something went wrong' });
-      }
-    }
-  )
-})
 
 app.post("/User",(req,res)=>{
   User.create({
@@ -70,10 +32,9 @@ app.put("/User/:_id", (req,res)=>{
   .catch(err=>res.status(500).json(err))
 })
 
-
 app.get("/User", (req, res)=>{
   User.find({})
-  .then(data=>res.status(200).json(data))
+  .then(data=>res.json(data))
   .catch(err=>res.status(500).json(err))
 })
 
@@ -92,37 +53,43 @@ app.delete("/User/:_id",(req,res)=>{
   .then(data=>res.status(200).json(data))
   .catch(err=>res.status(500).json(err))
 })
+////////////////////////
 
+app.post("/User/:userId/friends/:friendId", (req,res)=>{
+  //go into user first and look for userId
+  User.findOneAndUpdate(
+  {
+    _id: req.params.userId,
+   
+  },
 
-app.delete("User:_id",(req,res)=>{
-  Thoughts.findOneAndDelete({
-    _id:req.params._id,
-  })
+  { $addToSet: { friends: req.params.friendId } },
+ 
+  {new:true},
+  )
+  ///push a friend into the array
   .then(data=>res.status(200).json(data))
   .catch(err=>res.status(500).json(err))
 })
 
 
+
+
+
+////////////////////////////////
 app.get("/Thoughts", (req, res)=>{
   Thoughts.find({})
   .then(data=>res.status(200).json(data))
   .catch(err=>res.status(500).json(err))
 })
 
-
-
-
-// app.delete("/:_id", (req, res) => {
-//   userThought.findOneAndDelete({ _id: req.params._id}, (err, result) => {
-//     if (result) {
-//       res.status(200).json(result);
-//       console.log(`Deleted: ${result}`);
-//     } else {
-//       console.log('Uh Oh, something went wrong');
-//       res.status(500).json({ message: 'something went wrong' });
-//     }
-//   });
-// });
+app.delete("/Thoughts/:_id",(req,res)=>{
+  Thoughts.findOneAndDelete({
+    _id:req.params._id,
+  })
+  .then(data=>res.status(200).json(data))
+  .catch(err=>res.status(500).json(err))
+})
 
 db.once('open', () => {
     app.listen(PORT, () => {

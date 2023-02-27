@@ -55,29 +55,24 @@ app.delete("/User/:_id",(req,res)=>{
 })
 ////////////////////////
 
-app.delete("/User/:userId/friends/:friendId", (req,res)=>{
+app.post("/User/:userId/friends/:friendId", (req,res)=>{
   //go into user first and look for userId
   User.findOneAndUpdate(
-  {
-    _id: req.params.userId,
-  },
-
-  { $pull: { friends: req.params.friendId } },
- 
-  {new:true},
-  )
-  ///push a friend into the array
+  {_id: req.params.userId},
+  { $addToSet: { friends: req.params.friendId } },
+  {new:true})
   .then(data=>res.status(200).json(data))
   .catch(err=>res.status(500).json(err))
 })
 
-/////
 app.delete("/User/:userId/friends/:friendId", (req,res)=>{
   User.findOneAndUpdate(
     {_id:req.params.userId},
-
-    {new:true},
+    { $pull: { friends: req.params.friendId } },
+    {new:true}
     )
+    .then(data=>res.status(200).json(data))
+    .catch(err=>res.status(500).json(err))
 })
 
 

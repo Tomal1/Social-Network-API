@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("./config/connection");
 const { Thoughts, User, Reaction } = require("./models");
+const {ObjectId} = require('mongoose').Types
 
 const app = express()
 const PORT = 3001;
@@ -55,7 +56,6 @@ app.delete("/User/:_id",(req,res)=>{
 })
 ////////////////////////
 
-
 //adding a friend Id to a users record
 app.post("/User/:userId/friends/:friendId", (req,res)=>{
   //go into user first and look for userId
@@ -66,7 +66,6 @@ app.post("/User/:userId/friends/:friendId", (req,res)=>{
   .then(data=>res.status(200).json(data))
   .catch(err=>res.status(500).json(err))
 })
-
 
 //removing that friend Id from a user record
 app.delete("/User/:userId/friends/:friendId", (req,res)=>{
@@ -110,6 +109,25 @@ app.delete("/Thoughts/:_id",(req,res)=>{
   })
   .then(data=>res.status(200).json(data))
   .catch(err=>res.status(500).json(err))
+})
+
+//adding a friend Id to a users record
+  app.post("/thoughts/:thoughtId/reactions", (req,res)=>{
+  //go into user first and look for userId
+  console.log('***', req.params.thoughtId)
+  console.log(req.body)
+  const { reactionBody, username } = req.body
+  console.log(reactionBody, username)
+  const reaction = Reaction.create({reactionBody, username})
+  Thoughts.findOneAndUpdate(
+  {_id: req.params.thoughtId},
+  { $addToSet: { reactions: reaction } },
+  {new:true})
+  .then(data=>res.status(200).json(data))
+  .catch(err=> {
+    console.log(err)
+    res.status(500).json(err)
+  })
 })
 
 db.once('open', () => {

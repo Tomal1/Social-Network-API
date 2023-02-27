@@ -55,6 +55,8 @@ app.delete("/User/:_id",(req,res)=>{
 })
 ////////////////////////
 
+
+//adding a friend Id to a users record
 app.post("/User/:userId/friends/:friendId", (req,res)=>{
   //go into user first and look for userId
   User.findOneAndUpdate(
@@ -65,6 +67,8 @@ app.post("/User/:userId/friends/:friendId", (req,res)=>{
   .catch(err=>res.status(500).json(err))
 })
 
+
+//removing that friend Id from a user record
 app.delete("/User/:userId/friends/:friendId", (req,res)=>{
   User.findOneAndUpdate(
     {_id:req.params.userId},
@@ -76,11 +80,18 @@ app.delete("/User/:userId/friends/:friendId", (req,res)=>{
 })
 
 
-
-
 ////////////////////////////////
 app.get("/Thoughts", (req, res)=>{
   Thoughts.find({})
+  .then(data=>res.status(200).json(data))
+  .catch(err=>res.status(500).json(err))
+})
+
+app.post("/Thoughts", (req,res)=>{
+  Thoughts.create({
+    thoughtText: req.body.thoughtText,
+    username: req.body.username,
+  })
   .then(data=>res.status(200).json(data))
   .catch(err=>res.status(500).json(err))
 })

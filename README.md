@@ -14,7 +14,7 @@ Youtube video URL:
 ## Usage
 The user can use Imsomnia to test out the HTTP mettods as demonstrated in the video link found above.
 
-![alt text](./assets/picGoesHear.png)
+![alt text](./assets/socialAPI.png)
 
 ## License
 

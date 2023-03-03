@@ -131,7 +131,19 @@ app.delete("/Thoughts/:_id",(req,res)=>{
     console.log(err)
     res.status(500).json(err)
   })
-})
+});
+
+  //deleting a reaction
+  app.delete("/thoughts/:thoughtId/reactions/:reactionId", (req, res) => {
+    //go into user first and look for userId
+    Thoughts.findOneAndUpdate(
+      { _id: req.params.thoughtId},
+      { $pull: { reactions: { reactionId: req.params.reactionId}}},
+      { new: true }
+    )
+      .then(data => res.status(200).json(data))
+      .catch(err => res.status(500).json(err));
+    });
 
 db.once('open', () => {
     app.listen(PORT, () => {

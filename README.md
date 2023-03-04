@@ -9,7 +9,7 @@ A video link has been provide below showing the use of Imsomnia to test all the 
 
 gitHub repo URL: https://github.com/Tomal1/Social-Network-API
 
-Youtube video URL: 
+Youtube video URL: https://www.youtube.com/watch?v=BALld_Q-f0U
 
 ## Usage
 The user can use Imsomnia to test out the HTTP mettods as demonstrated in the video link found above.
